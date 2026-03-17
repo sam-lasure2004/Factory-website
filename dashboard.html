@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level 2 Owner Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(120deg,#eef2f3,#dfe9f3);
+}
+
+/* LAYOUT */
+.container{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:250px;
+  background:linear-gradient(180deg,#1e3c72,#2a5298);
+  color:white;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.logo{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.logo-circle{
+  width:90px;
+  height:90px;
+  background:white;
+  border-radius:50%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#2a5298;
+  font-weight:600;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+.logo-circle img{
+  width:100px;
+  height:100px;
+  object-fit:contain;
+  border-radius:50%;
+}
+
+
+.company{
+  text-align:center;
+  margin-top:10px;
+  font-weight:600;
+}
+
+.menu{
+  margin-top:20px;
+}
+
+.menu div{
+  padding:12px;
+  margin:8px 0;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.3s;
+  background:rgba(255,255,255,0.1);
+}
+
+.menu div:hover{
+  background:white;
+  color:#2a5298;
+  transform:translateX(6px);
+}
+
+/* LOGOUT BUTTON */
+.logout{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#ff4b5c;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.logout:hover{
+  background:#ff2e43;
+  transform:scale(1.04);
+}
+
+/* MAIN AREA */
+.main{
+  flex:1;
+  padding:20px;
+  overflow:auto;
+}
+
+/* TOPBAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.search{
+  padding:10px;
+  width:250px;
+  max-width:100%;
+  border-radius:10px;
+  border:1px solid #ccc;
+}
+
+.profile{
+  background:#2a5298;
+  color:white;
+  padding:8px 15px;
+  border-radius:20px;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+  margin-bottom:25px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-8px) scale(1.02);
+}
+
+.card h3{
+  color:#555;
+  font-size:14px;
+}
+
+.card h1{
+  color:#2a5298;
+}
+
+/* CONTENT AREA */
+.content{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:20px;
+}
+
+/* CHART BOX */
+.chart{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  min-height:300px;
+}
+
+/* ACTIVITY */
+.activity{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+.activity h3{
+  margin-bottom:10px;
+}
+
+.activity p{
+  font-size:14px;
+  color:#555;
+  margin:8px 0;
+  padding-bottom:8px;
+  border-bottom:1px solid #eee;
+}
+
+/* WELCOME */
+.welcome{
+  background:linear-gradient(120deg,#ffffff,#f1f5ff);
+  padding:25px;
+  border-radius:15px;
+  margin-bottom:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
+.welcome h2{
+  color:#2a5298;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .sidebar{
+    width:200px;
+  }
+  .content{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+  .sidebar{
+    display:none;
+  }
+  .main{
+    padding:15px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div>
+      <div class="logo">
+        <div class="logo-circle">
+  <img src="images/logo.jpeg" alt="Company Logo">
+</div>
+
+        <div class="company">Sai Prasad Paper Products</div>
+      </div>
+
+      <div class="menu">
+        <div>📊 Dashboard</div>
+        <div>📦 Orders</div>
+        <div>👥 Users</div>
+        <div>📄 Forms Data</div>
+        <div>📈 Charts</div>
+        <div>🔐 Login Details</div>
+        <div>⚙ Settings</div>
+      </div>
+    </div>
+
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <input class="search" placeholder="Search..." />
+      <div class="profile">🙏 Samartha</div>
+    </div>
+
+    <!-- WELCOME -->
+    <div class="welcome">
+      <h2>Welcome Sir 🙏</h2>
+      <p>Nice to see you again, Samartha B. S. Lasure</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="card">
+        <h3>Total Orders</h3>
+        <h1>124</h1>
+      </div>
+
+      <div class="card">
+        <h3>Total Users</h3>
+        <h1>89</h1>
+      </div>
+
+      <div class="card">
+        <h3>Contact Requests</h3>
+        <h1>36</h1>
+      </div>
+
+      <div class="card">
+        <h3>Revenue</h3>
+        <h1>₹52K</h1>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <div class="chart">
+        <h3>Sales Overview (Chart Area)</h3>
+      </div>
+
+      <div class="activity">
+        <h3>Recent Activity</h3>
+        <p>New order received</p>
+        <p>User registered</p>
+        <p>Contact form submitted</p>
+        <p>Password updated</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+function logout(){
+  window.location.href="index.html";
+}
+</script>
+
+</body>
+</html>

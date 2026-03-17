@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Owners</title>
+
+<style>
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+min-height:100vh;
+padding:50px;
+color:white;
+}
+
+/* Header */
+
+.page-title{
+font-size:40px;
+font-weight:600;
+letter-spacing:1px;
+text-align:center;
+flex:1;
+}
+
+
+/* Header Top Layout */
+
+.header-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:40px;
+flex-wrap:wrap;
+gap:15px;
+}
+
+/* Top Home Button */
+
+.top-home-btn{
+padding:8px 20px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+text-decoration:none;
+border-radius:25px;
+font-weight:500;
+transition:0.3s;
+}
+
+.top-home-btn:hover{
+transform:scale(1.08);
+box-shadow:0 6px 20px rgba(0,0,0,0.25);
+}
+
+
+/* Logo */
+
+.logo{
+width:170px;
+height:170px;
+object-fit:contain;
+border-radius:50%;
+}
+
+
+/* Scroll To Top Button */
+
+#scrollBtn{
+position:fixed;
+bottom:40px;
+right:40px;
+z-index:1000;
+
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+color:white;
+border:none;
+
+width:50px;
+height:50px;
+
+font-size:22px;
+border-radius:50%;
+
+cursor:pointer;
+display:none;
+
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+
+transition:0.3s;
+}
+
+#scrollBtn:hover{
+transform:scale(1.15);
+box-shadow:0 15px 35px rgba(0,0,0,0.4);
+}
+
+
+/* Owner Section */
+
+.owner-container{
+display:flex;
+flex-direction:column;
+gap:40px;
+}
+
+/* Owner Card */
+
+.owner-card{
+display:flex;
+align-items:center;
+gap:40px;
+background:rgba(255,255,255,0.08);
+padding:30px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+box-shadow:0 10px 40px rgba(0,0,0,0.4);
+transition:0.4s;
+}
+
+.owner-card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+
+/* Image */
+
+.owner-img{
+width:220px;
+height:220px;
+border-radius:20px;
+overflow:hidden;
+transform-style:preserve-3d;
+transition:0.5s;
+}
+
+.owner-img img{
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius: 50%;
+}
+
+.owner-card:hover .owner-img{
+transform:rotateY(10deg) rotateX(5deg);
+}
+
+/* Info */
+
+.owner-info{
+flex:1;
+}
+
+.owner-info h2{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.owner-role{
+color:#00d4ff;
+font-weight:500;
+margin-bottom:15px;
+}
+
+.owner-info p{
+line-height:1.6;
+color:#ddd;
+}
+
+/* Back Button */
+
+.back-btn{
+display:inline-block;
+margin-top:50px;
+padding:12px 25px;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+border-radius:30px;
+text-decoration:none;
+color:white;
+font-weight:500;
+transition:0.3s;
+}
+
+.back-btn:hover{
+transform:scale(1.1);
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.owner-card{
+flex-direction:column;
+text-align:center;
+}
+
+.owner-img{
+width:180px;
+height:180px;
+}
+
+}
+
+
+
+/* Tablet */
+@media (max-width: 992px){
+body{padding:30px;}
+.page-title{font-size:32px;}
+.logo{width:100px;height:100px;}
+.owner-card{gap:25px;}
+.owner-img{width:180px;height:180px;}
+}
+
+/* Mobile */
+@media (max-width: 768px){
+body{padding:20px;}
+.header-top{flex-direction:column;text-align:center;}
+.page-title{font-size:28px;}
+.logo{width:100px;height:100px;}
+.owner-card{flex-direction:column;text-align:center;}
+.owner-img{width:160px;height:160px;}
+.owner-info h2{font-size:24px;}
+}
+
+/* Small Mobile */
+@media (max-width: 480px){
+.page-title{font-size:24px;}
+.top-home-btn{padding:6px 16px;font-size:14px;}
+.owner-img{width:140px;height:140px;}
+.owner-info p{font-size:14px;}
+}
+
+
+/* Preloader */
+#preloader{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  flex-direction:column;
+}
+
+/* Preloader Logo */
+.preloader-logo{
+  width:200px;
+  height:200px;
+  object-fit:contain;
+  animation:logo-spin 2s linear infinite;
+  filter: drop-shadow(0 0 20px #00c6ff) drop-shadow(0 0 40px #00c6ff);
+  border-radius: 50%;
+}
+
+/* Logo Spin Animation */
+@keyframes logo-spin{
+  0%{transform:scale(0) rotate(0deg);}
+  50%{transform:scale(1.2) rotate(180deg);}
+  100%{transform:scale(1) rotate(360deg);}
+}
+
+/* Particles */
+#particles{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+#particles span{
+  position:absolute;
+  width:5px;
+  height:5px;
+  background:linear-gradient(white, #00d4ff);
+  border-radius:50%;
+  animation:particle 3s linear infinite;
+}
+
+@keyframes particle{
+  0%{transform:translateY(0) translateX(0) scale(0);}
+  50%{transform:translateY(-100px) translateX(50px) scale(1);}
+  100%{transform:translateY(-200px) translateX(100px) scale(0);}
+}
+
+#particles span:nth-child(1){left:10%; animation-delay:0s;}
+#particles span:nth-child(2){left:30%; animation-delay:0.5s;}
+#particles span:nth-child(3){left:50%; animation-delay:1s;}
+#particles span:nth-child(4){left:70%; animation-delay:1.5s;}
+#particles span:nth-child(5){left:90%; animation-delay:2s;}
+
+
+/* Vertical Split Logo Container */
+.logo-split-vertical{
+  position: relative;
+  width:200px;   /* final logo width */
+  height:200px;  /* final logo height */
+}
+
+/* Top and Bottom halves */
+.logo-top, .logo-bottom{
+  position: absolute;
+  left: 0;
+  width: 185px;   /* match container width */
+  height: 110px;  /* half of container height */
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px #00c6ff) drop-shadow(0 0 40px #00c6ff);
+  
+}
+
+/* Top half slides from top */
+.logo-top{
+  top: -100px;   /* offscreen start */
+  animation: top-join 2s forwards;
+}
+
+/* Bottom half slides from bottom */
+.logo-bottom{
+  bottom: -100px; /* offscreen start */
+  animation: bottom-join 2s forwards;
+}
+
+/* Keyframes */
+@keyframes top-join{
+  0%{top:-100px; opacity:0;}
+  50%{top:-20px; opacity:1;}
+  100%{top:0; opacity:1;}
+}
+
+@keyframes bottom-join{
+  0%{bottom:-100px; opacity:0;}
+  50%{bottom:-20px; opacity:1;}
+  100%{bottom:0; opacity:1;}
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- Preloader Top/Bottom Logo -->
+<div id="preloader">
+  <div class="logo-split-vertical">
+    <img src="images/logo-modified.png" class="logo-top" alt="Top Logo">
+    <img src="images/logo down-rbg.png" class="logo-bottom" alt="Bottom Logo">
+  </div>
+  <div id="particles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<div id="main-content" style="display:none;">
+  <!-- Existing content goes here -->
+
+<div class="header-top">
+
+<div class="logo-box">
+<img src="images/logo.jpeg" alt="Company Logo" class="logo">
+</div>
+
+<h1 class="page-title">Our Leadership Team</h1>
+
+<div class="home-btn-box">
+<a href="index.html" class="top-home-btn">⬅ Home</a>
+</div>
+
+</div>
+
+
+
+<div class="owner-container">
+
+<!-- Owner 1 -->
+
+<div class="owner-card">
+
+<div class="owner-img">
+<img src="images/lady.jpg" alt="">
+</div>
+
+<div class="owner-info">
+<h2>Main Founder</h2>
+<div class="owner-role">Founder & Main Owner</div>
+
+<p>
+She is the visionary who started and built this company from the ground up. 
+Through dedication, leadership, and strong business ideas, she successfully 
+established the organization and continues to guide it towards innovation, 
+growth, and long-term success.
+</p>
+
+</div>
+</div>
+
+
+<!-- Owner 2 -->
+
+<div class="owner-card">
+
+<div class="owner-img">
+<img src="images/sir.jpg" alt="">
+</div>
+
+<div class="owner-info">
+<h2>Company Head</h2>
+<div class="owner-role">Co-Owner & Company Pramukh</div>
+
+<p>
+He plays a crucial leadership role in managing the company's operations and 
+strategic decisions. As the company head, he ensures that all departments 
+work efficiently while maintaining the vision and standards of the company.
+</p>
+
+</div>
+</div>
+
+
+<!-- Owner 3 -->
+
+<div class="owner-card">
+
+<div class="owner-img">
+<img src="images/me.jpeg" alt="">
+</div>
+
+<div class="owner-info">
+<h2>Operations Manager</h2>
+<div class="owner-role">Production & Sales Management</div>
+
+<p>
+He manages multiple key responsibilities within the company including 
+product checking, production management, purchasing, and sales operations. 
+His work ensures that products maintain quality standards while the business 
+runs smoothly and efficiently.
+</p>
+
+</div>
+</div>
+
+</div>
+
+<center>
+<a href="index.html" class="back-btn">⬅ Back to Home</a>
+</center>
+
+<button onclick="scrollToTop()" id="scrollBtn" title="Go to top">↑</button>
+
+<script>
+
+// show button when scrolling
+window.onscroll = function() {
+scrollFunction();
+};
+
+function scrollFunction() {
+
+let btn = document.getElementById("scrollBtn");
+
+if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+btn.style.display = "block";
+} else {
+btn.style.display = "none";
+}
+
+}
+
+// scroll to top
+
+function scrollToTop(){
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+}
+
+</script>
+
+</div>
+
+<script>
+window.addEventListener("load", function(){
+  setTimeout(function(){
+    document.getElementById("preloader").style.opacity = "0";
+    setTimeout(function(){
+      document.getElementById("preloader").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+    }, 500); // fade out duration
+  }, 4000); // 4 seconds total
+});
+</script>
+
+</body>
+</html>

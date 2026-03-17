@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  min-height:100vh;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* MAIN CONTAINER */
+.container{
+  width:95%;
+  max-width:1200px;
+  margin:40px auto;
+  padding:20px;
+  border-radius:25px;
+  backdrop-filter:blur(15px);
+  background:rgba(255,255,255,0.08);
+  box-shadow:0 0 30px rgba(0,0,0,0.4);
+  position:relative;
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.title{
+  font-size:32px;
+  font-weight:600;
+  letter-spacing:1px;
+}
+
+/* SOCIAL ICONS */
+.icons{
+  display:flex;
+  gap:12px;
+}
+
+.icon{
+  width:35px;
+  height:35px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.3s;
+}
+
+.icon a{
+  color:white;
+  font-size:16px;
+}
+
+.icon:hover{
+  transform:translateY(-6px) rotate(8deg);
+  background:#00c6ff;
+}
+
+
+/* HOME BUTTON */
+.home-btn{
+  padding:6px 15px;
+  border-radius:12px;
+  background:#fff;
+  color:#000;
+  font-size:14px;
+  cursor:pointer;
+  margin-left:10px;
+  transition:.3s;
+}
+.home-btn:hover{
+  background:#00c6ff;
+  color:#fff;
+}
+
+/* MAP BOX */
+.map-box{
+  margin:20px 0;
+  border-radius:25px;
+  overflow:hidden;
+  box-shadow:0 15px 35px rgba(0,0,0,0.5);
+  transform:perspective(800px) rotateX(5deg);
+  transition:.4s;
+}
+
+.map-box:hover{
+  transform:perspective(800px) rotateX(0deg) scale(1.01);
+}
+
+iframe{
+  width:100%;
+  height:300px;
+  border:0;
+}
+
+/* FORM BOX */
+.form-box{
+  padding:25px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.08);
+  box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+.form-box h2{
+  margin-bottom:15px;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+input, textarea{
+  width:100%;
+  padding:12px;
+  border:none;
+  outline:none;
+  border-radius:10px;
+  background:rgba(255,255,255,0.15);
+  color:#fff;
+  font-size:14px;
+}
+
+textarea{
+  resize:none;
+  height:100px;
+}
+
+input::placeholder, textarea::placeholder{
+  color:#ddd;
+}
+
+/* SUBMIT BUTTON */
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:#00c6ff;
+  color:#fff;
+  font-weight:600;
+  font-size:16px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+button:hover{
+  background:#00a3cc;
+}
+
+/* MESSAGE */
+.success{
+  margin-top:15px;
+  display:none;
+  background:#0f5132;
+  padding:12px;
+  border-radius:10px;
+}
+
+/* SCROLL TOP */
+#topBtn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#00c6ff;
+  border:none;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  font-size:20px;
+  color:#fff;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.4);
+  display:none;
+}
+
+#topBtn:hover{
+  transform:translateY(-5px);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .title{font-size:24px;}
+  iframe{height:220px;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="title">Contact</div>
+
+    <div style="display:flex;align-items:center;">
+      <div class="icons">
+        <div class="icon">
+    <a href="https://www.youtube.com/@SaiPrasadPaperProducts" target="_blank">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </div>
+
+  <div class="icon">
+    <a href="https://www.instagram.com/sai_prasad_paper_product/" target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
+
+  <div class="icon">
+    <a href="https://www.facebook.com/people/Sai-Prasad-Paper-Products/100066933514193/" target="_blank">
+      <i class="fab fa-facebook"></i>
+    </a>
+  </div>
+
+  <div class="icon">
+    <a href="https://wa.me/919156833877" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+      </div>
+      <div class="home-btn" onclick="location.href='index.html'">Home</div>
+    </div>
+  </div>
+
+  <!-- GOOGLE MAP -->
+  <div class="map-box">
+    <!-- Replace src with your Google map iframe -->
+   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.0669938134783!2d73.86719977433776!3d18.48062438260524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2ebb468e294cf%3A0xab0f09c9774f3be0!2sSai%20Prasad%20Paper%20Products!5e0!3m2!1sen!2sin!4v1770568185103!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+  <!-- CONTACT FORM -->
+  <div class="form-box">
+    <h2>Contact Form</h2>
+
+    <form id="contactForm">
+      <div class="form-group">
+        <input type="text" id="name" placeholder="Name">
+      </div>
+
+      <div class="form-group">
+        <input type="text" id="mobile" placeholder="Mobile Number">
+      </div>
+
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Email">
+      </div>
+
+      <div class="form-group">
+        <textarea id="address" placeholder="Address"></textarea>
+      </div>
+
+      <div class="form-group">
+        <textarea id="message" placeholder="Message"></textarea>
+      </div>
+
+      <button type="submit">Submit</button>
+
+      <div class="success" id="successMsg">
+        Submitted your info. We will get back soon and connect you. Thank you!
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<button id="topBtn">↑</button>
+
+<script>
+const form=document.getElementById('contactForm');
+const success=document.getElementById('successMsg');
+
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+
+  let name=document.getElementById('name').value.trim();
+  let mobile=document.getElementById('mobile').value.trim();
+  let email=document.getElementById('email').value.trim();
+  let address=document.getElementById('address').value.trim();
+  let message=document.getElementById('message').value.trim();
+
+  if(name==""||mobile==""||email==""||address==""||message==""){
+    alert("Please fill all fields correctly.");
+    return;
+  }
+
+  if(!/^[0-9]{10}$/.test(mobile)){
+    alert("Enter valid 10 digit mobile number");
+    return;
+  }
+
+  success.style.display="block";
+  form.reset();
+});
+
+/* SCROLL TOP */
+let topBtn=document.getElementById("topBtn");
+
+window.onscroll=function(){
+  if(document.body.scrollTop>200||document.documentElement.scrollTop>200){
+    topBtn.style.display="block";
+  }else{
+    topBtn.style.display="none";
+  }
+};
+
+topBtn.onclick=function(){
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+</script>
+
+</body>
+</html>

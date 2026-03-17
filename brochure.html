@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sai Prasad Paper Products | Brochure</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#f5f7fa,#e4efe9);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+min-height:100vh;
+padding:20px;
+}
+
+h1{
+color:#1a7f5a;
+margin-bottom:25px;
+}
+
+.slider{
+position:relative;
+max-width:700px;
+width:100%;
+overflow:hidden;
+border-radius:12px;
+box-shadow:0 15px 40px rgba(0,0,0,0.25);
+background:#fff;
+}
+
+.slides{
+display:flex;
+transition:transform 0.5s ease;
+}
+
+.slides img{
+width:100%;
+flex-shrink:0;
+}
+
+/* arrows */
+
+.arrow{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+font-size:28px;
+background:rgba(0,0,0,0.6);
+color:#fff;
+width:45px;
+height:45px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+cursor:pointer;
+}
+
+.arrow:hover{
+background:#1a7f5a;
+}
+
+.prev{
+left:10px;
+}
+
+.next{
+right:10px;
+}
+
+/* back button */
+
+.back-btn{
+position:fixed;
+top:20px;
+left:20px;
+padding:10px 20px;
+background:linear-gradient(135deg,#1a7f5a,#0f5132);
+color:#fff;
+text-decoration:none;
+border-radius:30px;
+font-weight:500;
+box-shadow:0 5px 15px rgba(0,0,0,0.25);
+transition:0.3s;
+z-index:100;
+}
+
+.back-btn:hover{
+transform:translateY(-3px);
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Company Brochure</h1>
+
+<div class="slider">
+
+<div class="slides" id="slides">
+<img src="images/Brochure/1.png" alt="Brochure Page 1">
+<img src="images/Brochure/2.png" alt="Brochure Page 2">
+</div>
+
+
+<div class="arrow prev" onclick="prevSlide()">❮</div>
+<div class="arrow next" onclick="nextSlide()">❯</div>
+
+</div>
+
+<a href="index.html" class="back-btn">Back to Home</a>
+
+<script>
+
+let index = 0;
+const slides = document.getElementById("slides");
+const total = slides.children.length;
+
+function updateSlide(){
+slides.style.transform = "translateX(-" + index * 100 + "%)";
+}
+
+function nextSlide(){
+index++;
+if(index >= total){index = 0;}
+updateSlide();
+}
+
+function prevSlide(){
+index--;
+if(index < 0){index = total - 1;}
+updateSlide();
+setInterval(nextSlide,5000);
+}
+
+</script>
+
+</body>
+</html>

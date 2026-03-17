@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Invoice</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+
+body{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(270deg,#0f2027,#203a43,#2c5364);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+color:white;
+padding:30px;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+.container{
+width:900px;
+max-width:95%;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+border-radius:25px;
+padding:35px;
+box-shadow:0 25px 60px rgba(0,0,0,0.5);
+animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+h1{
+text-align:center;
+margin-bottom:25px;
+letter-spacing:1px;
+}
+
+.section{
+background:rgba(255,255,255,0.07);
+border-radius:18px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+margin:8px 0;
+}
+
+.label{opacity:.8}
+
+.products{
+margin-top:10px;
+}
+
+.product{
+display:flex;
+justify-content:space-between;
+padding:10px;
+border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.total{
+text-align:right;
+font-size:20px;
+font-weight:600;
+margin-top:15px;
+color:#ffd700;
+}
+
+.buttons{
+display:flex;
+gap:15px;
+margin-top:25px;
+}
+
+button{
+flex:1;
+padding:14px;
+border:none;
+border-radius:12px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.place{
+background:linear-gradient(135deg,#00ffcc,#00bcd4);
+}
+
+.place:hover{
+transform:translateY(-3px) scale(1.03);
+box-shadow:0 12px 25px rgba(0,0,0,0.5);
+}
+
+.home{
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+}
+
+.home:hover{
+transform:translateY(-3px) scale(1.03);
+box-shadow:0 12px 25px rgba(0,0,0,0.5);
+}
+
+.footer{
+text-align:center;
+margin-top:15px;
+font-size:13px;
+opacity:.8;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Order Pre‑Invoice</h1>
+
+<div class="section">
+<h3>Customer Details</h3>
+<div class="row"><span class="label">Name:</span><span id="cname"></span></div>
+<div class="row"><span class="label">Email:</span><span id="cemail"></span></div>
+<div class="row"><span class="label">Mobile:</span><span id="cmobile"></span></div>
+<div class="row"><span class="label">Address:</span><span id="caddress"></span></div>
+<div class="row"><span class="label">Order Date:</span><span id="odate"></span></div>
+</div>
+
+<div class="section">
+<h3>Products</h3>
+<div id="productList" class="products"></div>
+<div class="total" id="total"></div>
+</div>
+
+<div class="buttons">
+<button class="place" onclick="placeOrder()">Place Order</button>
+<button class="home" onclick="goHome()">Home</button>
+</div>
+
+<div class="footer">After clicking Place Order, confirm the order in WhatsApp.</div>
+
+</div>
+
+<script>
+
+const order = JSON.parse(localStorage.getItem("orderData"));
+// Generate Order ID
+
+let lastOrder = localStorage.getItem("lastOrderID");
+
+if(!lastOrder){
+lastOrder = 1000;
+}else{
+lastOrder = parseInt(lastOrder) + 1;
+}
+
+localStorage.setItem("lastOrderID", lastOrder);
+
+const orderID = "ORD" + lastOrder;
+
+
+const orderDate = new Date().toLocaleDateString("en-IN");
+
+if(!order){
+alert("No order data found");
+window.location.href="index.html";
+}
+
+// Fill customer data
+
+document.getElementById("cname").innerText = order.name;
+document.getElementById("cemail").innerText = order.email;
+document.getElementById("cmobile").innerText = order.mobile;
+document.getElementById("caddress").innerText = order.address;
+
+const today = new Date();
+document.getElementById("odate").innerText = orderDate;
+
+// Load products
+
+const list = document.getElementById("productList");
+
+order.cart.forEach(item=>{
+
+const div = document.createElement("div");
+div.className="product";
+
+const price = item.price * item.qty;
+
+
+div.innerHTML = `<span>${item.name} (x${item.qty})</span><span>₹${price}</span>`;
+
+list.appendChild(div);
+
+});
+
+// Total
+
+document.getElementById("total").innerText = "Total: ₹" + order.total;
+
+
+function placeOrder(){
+
+//let message = "🧾 *NEW ORDER* %0A%0A";
+
+//message += "👤 Name: " + order.name + "%0A";
+//message += "📧 Email: " + order.email + "%0A";
+//message += "📞 Mobile: " + order.mobile + "%0A";
+//message += "📍 Address: " + order.address + "%0A%0A";
+
+//message += "📦 *Products* %0A";
+
+//order.cart.forEach(item=>{
+//message += "• " + item.name + " x" + item.qty + "%0A";
+//});
+
+//message += "%0A💰 Total: ₹" + order.total + "%0A";
+
+//message += "%0AThis order was placed from website.";
+
+
+
+let message = 
+"🧾 NEW ORDER\n\n" +
+"Order ID: " + orderID + "\n" +
+"Date: " + orderDate + "\n\n" +
+"👤 Name: " + order.name + "\n" +
+"📧 Email: " + order.email + "\n" +
+"📞 Mobile: " + order.mobile + "\n" +
+"📍 Address: " + order.address + "\n\n" +
+"📦 Products\n";
+
+
+order.cart.forEach(item=>{
+message += "• " + item.name + " x" + item.qty + "\n";
+});
+
+message += "\n💰 Total: ₹" + order.total + "\n\n";
+message += "Order placed from website.";
+
+
+
+let phone = "919156833877"; // replace with company whatsapp number
+
+let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+
+window.open(url,'_blank');
+
+}
+
+function goHome(){
+window.location.href="index.html";
+}
+
+</script>
+
+</body>
+</html>

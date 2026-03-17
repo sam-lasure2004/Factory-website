@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+min-height:100vh;
+background:linear-gradient(135deg,#1f4037,#99f2c8);
+display:flex;
+justify-content:center;
+align-items:center;
+padding:30px;
+color:#fff;
+}
+
+.container{
+width:1100px;
+max-width:95%;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(20px);
+border-radius:25px;
+padding:30px;
+box-shadow:0 20px 60px rgba(0,0,0,0.4);
+animation:fadeIn 1s ease;
+}
+
+h1{
+text-align:center;
+margin-bottom:25px;
+}
+
+.wrapper{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
+}
+
+.section{
+background:rgba(255,255,255,0.08);
+padding:20px;
+border-radius:20px;
+}
+
+.cart-item{
+display:flex;
+align-items:center;
+margin-bottom:12px;
+}
+
+.cart-item img{
+width:50px;
+height:50px;
+border-radius:8px;
+margin-right:10px;
+}
+
+.total{
+margin-top:15px;
+font-weight:600;
+font-size:18px;
+color:#ffd700;
+}
+
+/* form */
+
+.input-box{
+margin-bottom:18px;
+}
+
+.input-box label{
+display:block;
+margin-bottom:6px;
+font-size:14px;
+}
+
+.input-box input,
+.input-box textarea{
+width:100%;
+padding:10px;
+border:none;
+border-radius:8px;
+outline:none;
+}
+
+.error{
+font-size:12px;
+color:#ffb3b3;
+margin-top:4px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+font-weight:600;
+cursor:pointer;
+margin-top:15px;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+.customer-id{
+font-size:14px;
+margin-bottom:15px;
+color:#ffd700;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:800px){
+.wrapper{
+grid-template-columns:1fr;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Checkout</h1>
+
+<div class="wrapper">
+
+<!-- CART SUMMARY -->
+
+<div class="section">
+
+<h2>Order Summary</h2>
+
+<div id="cartItems"></div>
+
+<div class="total" id="totalAmount"></div>
+
+</div>
+
+
+<!-- CUSTOMER FORM -->
+
+<div class="section">
+
+<h2>Customer Details</h2>
+
+<div class="customer-id" id="customerId"></div>
+
+<div class="input-box">
+<label>Full Name</label>
+<input type="text" id="name">
+<div class="error" id="nameErr"></div>
+</div>
+
+<div class="input-box">
+<label>Email</label>
+<input type="email" id="email">
+<div class="error" id="emailErr"></div>
+</div>
+
+<div class="input-box">
+<label>Mobile Number</label>
+<input type="text" id="mobile">
+<div class="error" id="mobileErr"></div>
+</div>
+
+<div class="input-box">
+<label>Delivery Address</label>
+<textarea id="address"></textarea>
+<div class="error" id="addressErr"></div>
+</div>
+
+<button onclick="processOrder()">Process Order</button>
+
+<button onclick="goBack()">⬅ Back to Cart</button>
+
+<button onclick="exitHome()">Exit</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* LOAD CART */
+
+const cart = JSON.parse(localStorage.getItem("cart")) || [];
+const cartContainer = document.getElementById("cartItems");
+
+let total = 0;
+
+cart.forEach(item=>{
+
+const div = document.createElement("div");
+div.classList.add("cart-item");
+
+div.innerHTML = `
+<img src="${item.img}">
+<div>${item.name} (x${item.qty})</div>
+<div style="margin-left:auto">₹${item.price*item.qty}</div>
+`;
+
+cartContainer.appendChild(div);
+
+total += item.price*item.qty;
+
+});
+
+document.getElementById("totalAmount").innerText = "Total : ₹"+total;
+
+
+/* CUSTOMER ID */
+
+const customerID = "CUST"+Math.floor(Math.random()*100000);
+document.getElementById("customerId").innerText="Customer ID : "+customerID;
+
+
+/* LOAD ACCOUNT DETAILS */
+
+const loggedUser = localStorage.getItem("loggedUser");
+
+if(loggedUser){
+
+const userData = JSON.parse(localStorage.getItem(loggedUser));
+
+document.getElementById("name").value = userData.name;
+document.getElementById("email").value = loggedUser;
+document.getElementById("mobile").value = userData.mobile;
+
+}
+
+/* VALIDATION */
+
+function processOrder(){
+
+let valid=true;
+
+const name=document.getElementById("name").value.trim();
+const email=document.getElementById("email").value.trim();
+const mobile=document.getElementById("mobile").value.trim();
+const address=document.getElementById("address").value.trim();
+
+
+let loggedUser = localStorage.getItem("loggedUser");
+
+if(!loggedUser){
+alert("Session expired. Please login again.");
+window.location.href="sign_in_up.html";
+return;
+}
+
+const stored = JSON.parse(localStorage.getItem(loggedUser));
+
+if(name !== stored.name){
+document.getElementById("nameErr").innerText=
+"Checkout name does not match account name. Please correct it.";
+valid=false;
+}
+
+if(email !== loggedUser){
+document.getElementById("emailErr").innerText=
+"Checkout email does not match account email.";
+valid=false;
+}
+
+if(mobile !== stored.mobile){
+document.getElementById("mobileErr").innerText=
+"Mobile number must match account mobile number.";
+valid=false;
+}
+
+if(address.length < 10){
+document.getElementById("addressErr").innerText=
+"Please enter full address.";
+valid=false;
+}
+
+if(!valid) return;
+
+
+/* SAVE ORDER */
+
+const orderData = {
+name,
+email,
+mobile,
+address,
+cart,
+total
+};
+
+localStorage.setItem("orderData",JSON.stringify(orderData));
+
+window.location.href="order.html";
+
+}
+
+
+
+function goBack(){
+
+localStorage.removeItem("cart"); // security
+
+window.location.href="add_product_cart.html";
+
+}
+
+function exitHome(){
+
+localStorage.removeItem("cart");
+
+window.location.href="index.html";
+
+}
+
+</script>
+
+</body>
+</html>
